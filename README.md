@@ -8,4 +8,3 @@ I created this game following TDD principals and used rspec for all testing. It 
 
 ## Why
 I made this game for the Connect Four Project which is part of the Odin Project course. 
-It will help me learn TDD and improve my skills and understanding of fundamentals.
