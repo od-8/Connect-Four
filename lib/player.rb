@@ -1,5 +1,8 @@
+# frozen_string_literal: false
+
+# Class that handles players
 class Player
-  def initialize(name) # Both are strings 
-    @name = name
+  def initialize(name)
+    @name = name # String
   end
 end

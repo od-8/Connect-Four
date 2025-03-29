@@ -1,15 +1,31 @@
+# frozen_string_literal: false
+
+require_relative '../lib/board'
+require_relative '../lib/player'
+
+# Contains methods that run the game itself
 class Game
-  def initialize; end # Will set up the board and basic functionality
+  # Will set up the board and basic functionality
+  def initialize
+    @board = Board.new
+  end
 
-  def move; end # Functionality that handles a move
+  def start
+    print 'Enter the first players name: '
+    @player1 = Player.new(gets.chomp)
+    # print "\e[2K\e[G"
+    # print "\e[1A\e[2K"
+    print 'Enter the second players name: '
+    @player2 = Player.new(gets.chomp)
+  end
 
-  def vertical_win?; end # Checks if there is a vertical win
+  # Handles if someone has won or board is full
+  def game_over; end
 
-  def horizontal_win?; end # Checks if there is a horizontal win
-  
-  def diagonal_win?; end # Checks if there is a diagonal win
-
-  def full?; end # Checks if board is full
-
-  def game_over; end # Handles if someone has won or board is full
+  def info
+    # @board.board.each do |list|
+    #   p list
+    # end
+    @board.print_board
+  end
 end
