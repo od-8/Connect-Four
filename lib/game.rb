@@ -13,8 +13,6 @@ class Game
   def start
     print 'Enter the first players name: '
     @player1 = Player.new(gets.chomp)
-    # print "\e[2K\e[G"
-    # print "\e[1A\e[2K"
     print 'Enter the second players name: '
     @player2 = Player.new(gets.chomp)
   end
@@ -23,9 +21,9 @@ class Game
   def game_over; end
 
   def info
-    # @board.board.each do |list|
-    #   p list
-    # end
     @board.print_board
   end
 end
+
+# print "\e[2K\e[G"
+# print "\e[1A\e[2K"

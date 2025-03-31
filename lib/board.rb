@@ -4,7 +4,7 @@ require_relative '../lib/linked_list'
 
 # Board itself
 class Board
-  attr_accessor :board
+  attr_accessor :lists
 
   def initialize
     @board = Array.new(7) { LinkedList.new }
@@ -13,21 +13,14 @@ class Board
 
   def setup
     @board.each_with_index do |list, index|
-      list.append(index.to_s) while list.size < 7
+      list.append(index) while list.size < 6
     end
   end
 
   def print_board
-    # p @board
-
-    @board.each_with_index do |_list, index|
-      @board.each_with_index do |sub_list, _sub_index|
-        print "| #{sub_list.at_index(index + 1)} "
-      end
-      print '|'
-      puts ''
+    @board.each_with_index do |list, _index|
+      puts list.print_list
     end
-    puts ''
   end
 
   # Functionality that handles a move
