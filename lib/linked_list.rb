@@ -9,7 +9,7 @@ class LinkedList
   def initialize
     @head = nil
     @tail = nil
-    @size = -1
+    @size = 0
   end
 
   # Adds item to end of list
@@ -55,6 +55,6 @@ class LinkedList
       nodes << "( #{node.value} )"
       node = node.next_node
     end
-    "#{nodes.join(' -> ')}"
+    nodes.join(' -> ').to_s
   end
 end

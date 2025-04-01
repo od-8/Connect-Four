@@ -11,23 +11,40 @@ class Board
     setup
   end
 
+  # Setup up board when game is initialized
   def setup
     @board.each_with_index do |list, index|
-      list.append(index) #while list.size < 6
+      # list.append(index)
     end
-    # p @board
   end
 
+  # Prints board so its easy to undrestand
   def print_board
-    # @board.each_with_index do |list, index|
-    #   puts list.print_list
-    # end
-    p @board[0].at_index(1).value
+    @board.each do |list|
+      if list.size > 0 
+        puts list.print_list
+      else
+        puts 'nil'
+      end
+    end
   end
 
-  # Functionality that handles a move
+  # Adds letter to specific column
   def move(column, letter)
-    # set the number at the bottom left of the board to the string 'x'
-    @board[column].append('x')
+    @board[column].append(letter)
+  end
+
+  # Checks if number is between 0 - 6 as that is how many rows the baord has
+  def valid_move?(column)
+    return true if column.between?(0, 6)
+
+    false
+  end
+
+  # Checks if either player has won horizontally
+  def horizontal_win?
+    # return true if a there is a row of 4 on any row
+
+    # false
   end
 end
