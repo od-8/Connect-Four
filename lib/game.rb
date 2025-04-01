@@ -23,6 +23,10 @@ class Game
   def info
     @board.print_board
   end
+
+  def go
+    @board.move(0, 'x')
+  end
 end
 
 # print "\e[2K\e[G"
