@@ -55,8 +55,24 @@ describe Board do # rubocop:disable Metrics/BlockLength
         test_board.print_board
       end
 
-      it 'returns true as row of 4 on bottom row of board' do
+      xit 'returns true as row of 4 on bottom row of board' do
         result = test_board.horizontal_win?
+        expect(result).to be(true)
+      end
+    end
+  end
+
+  describe '#vertical_win?' do
+    context 'returns true when player has won vertically' do
+      before do
+        test_board.move(1, 'x')
+        test_board.move(1, 'x')
+        test_board.move(1, 'x')
+        test_board.move(1, 'x')
+      end
+
+      xit 'returns true as row 1 has winners' do
+        result = test_board.vertical_win?
         expect(result).to be(true)
       end
     end

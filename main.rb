@@ -6,17 +6,23 @@ require_relative 'lib/player'
 require_relative 'lib/linked_list'
 require_relative 'lib/nodes'
 
-# my_game = Game.new
-# my_game.board.print_board
+my_game = Game.new
+my_game.board.print_board
 
-# puts ''
+puts ''
 
-# my_game.board.move(1, 'x')
-# my_game.board.move(2, 'x')
-# my_game.board.move(3, 'x')
-# my_game.board.move(4, 'x')
-# # my_game.board.move(6, 'x')
+my_game.board.move(1, 'x')
+my_game.board.move(1, 'x')
+my_game.board.move(1, 'x')
+my_game.board.move(1, 'x')
+# my_game.board.move(6, 'x')
 
-# puts ''
+puts ''
 
-# my_game.board.print_board
+my_game.board.print_board
+
+puts ''
+
+# p my_game.board.horizontal_win?
+
+my_game.board.vertical_win?

@@ -46,8 +46,18 @@ class LinkedList
     end
   end
 
-  # Print the nodes so they are easy to understand
+  # Gets index of node in list
+  def find(value, node = @head, counter = 1)
+    if node&.value.nil?
+      nil
+    elsif value == node.value
+      counter
+    else
+      find(value, node.next_node, counter + 1)
+    end
+  end
 
+  # Print the nodes so they are easy to understand
   def print_list
     nodes = []
     node = @head

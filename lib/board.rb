@@ -41,10 +41,9 @@ class Board
     false
   end
 
-  # Checks if either player has won horizontally
-  def horizontal_win?
-    # return true if a there is a row of 4 on any row
+  # Checks if player has won horizontally
+  def horizontal_win?; end
 
-    # false
-  end
+  # Check is player has won vertically
+  def vertical_win?; end
 end
