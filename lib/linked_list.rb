@@ -1,6 +1,4 @@
-# frozen_string_literal: false
-
-require_relative '../lib/nodes'
+require_relative "../lib/nodes"
 
 # Class for linked list
 class LinkedList
@@ -57,6 +55,18 @@ class LinkedList
     end
   end
 
+  def my_each_with_index
+    return nil if @head.nil?
+
+    i = 0
+    node = @head
+    until i == @size
+      yield(node, i)
+      node = node.next_node
+      i += 1
+    end
+  end
+
   # Print the nodes so they are easy to understand
   def print_list
     nodes = []
@@ -65,6 +75,6 @@ class LinkedList
       nodes << "( #{node.value} )"
       node = node.next_node
     end
-    nodes.join(' -> ').to_s
+    nodes.join(" -> ").to_s
   end
 end

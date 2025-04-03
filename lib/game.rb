@@ -1,7 +1,5 @@
-# frozen_string_literal: false
-
-require_relative '../lib/board'
-require_relative '../lib/player'
+require_relative "../lib/board"
+require_relative "../lib/player"
 
 # Contains the methods that run the game itself
 class Game
@@ -13,9 +11,9 @@ class Game
 
   # Get names of players
   def obtain_names
-    print 'Enter the first players name: '
+    print "Enter the first players name: "
     @player1 = Player.new(gets.chomp)
-    print 'Enter the second players name: '
+    print "Enter the second players name: "
     @player2 = Player.new(gets.chomp)
   end
 
