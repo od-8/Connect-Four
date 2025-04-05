@@ -29,10 +29,10 @@ class Board
 
   # Adds letter to specific column
   def move(column, letter)
-    @board[column].append(letter)
+    @board[column].append(letter.capitalize)
   end
 
-  # Checks if number is between 0 - 6 as that is how many rows the baord has
+  # Checks if number is between 0 - 6 as that is how many rows the board has
   def valid_move?(column)
     return true if column.between?(0, 6)
 
@@ -41,28 +41,36 @@ class Board
 
   # Checks if player has won horizontally
   def horizontal_win?
-    # loop through @board
-    # loop through list
-    # Check if node is equal to x and if so then check lists to right of it
-    # Check is list has 3 to the righ of it
-    # return boolean
+    @board.each_with_index do |list, list_index|
+      list.my_each_with_index do |_node, node_index|
+        return true if @board[list_index].at_index(node_index).value == "X" &&
+                       @board[list_index + 1].at_index(node_index).value == "X" &&
+                       @board[list_index + 2].at_index(node_index).value == "X" &&
+                       @board[list_index + 3].at_index(node_index).value == "X"
+
+        return true if @board[list_index].at_index(node_index).value == "O" &&
+                       @board[list_index + 1].at_index(node_index).value == "O" &&
+                       @board[list_index + 2].at_index(node_index).value == "O" &&
+                       @board[list_index + 3].at_index(node_index).value == "O"
+      end
+    end
+    false
   end
 
   # Check is player has won vertically
-  def vertical_win? # rubocop:disable Metrics/MethodLength
-    counter = 0
+  def vertical_win?
+    x_counter = Hash.new(0)
+    o_counter = Hash.new(0)
 
-    @board.each do |list|
-      list.my_each_with_index do |node, _index|
-        if node.value == "x"
-          counter += 1
-          return true if counter >= 4 # Once it reaches 4 in a row loops stops and returns true
-        else
-          counter = 0
-        end
+    @board.each_with_index do |list, list_index|
+      list.my_each_with_index do |node, _node_index|
+        x_counter[list_index] += 1 if node.value == "X"
+        o_counter[list_index] += 1 if node.value == "O"
+
+        return true if x_counter.values.any? { |n| n >= 4 }
+        return true if o_counter.values.any? { |n| n >= 4 }
       end
     end
-
     false
   end
 end

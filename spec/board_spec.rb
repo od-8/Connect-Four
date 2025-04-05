@@ -20,7 +20,7 @@ describe Board do # rubocop:disable Metrics/BlockLength
         column = 0
         row = 1
         node = board[column].at_index(row)
-        expect(node.value).to eq("x")
+        expect(node.value).to eq("X")
       end
     end
   end
@@ -44,16 +44,29 @@ describe Board do # rubocop:disable Metrics/BlockLength
   end
 
   describe "#horizontal_win?" do
-    context "returns true when the player has won horizontally" do
+    context "returns true when the player has won horizontally with X" do
       before do
-        test_board.move(1, "x")
-        test_board.move(2, "x")
-        test_board.move(3, "x")
-        test_board.move(4, "x")
-        test_board.print_board
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
       end
 
-      xit "returns true as row of 4 on bottom row of board" do
+      it "returns true as row of 4 on bottom row of board" do
+        result = test_board.horizontal_win?
+        expect(result).to be(true)
+      end
+    end
+
+    context "returns true when the player has won horizontally with O" do
+      before do
+        test_board.move(1, "O")
+        test_board.move(2, "O")
+        test_board.move(3, "O")
+        test_board.move(4, "O")
+      end
+
+      it "returns true as row of 4 on bottom row of board" do
         result = test_board.horizontal_win?
         expect(result).to be(true)
       end
@@ -61,15 +74,29 @@ describe Board do # rubocop:disable Metrics/BlockLength
   end
 
   describe "#vertical_win?" do
-    context "returns true when player has won vertically" do
+    context "returns true when player has won vertically with X" do
       before do
-        test_board.move(1, "x")
-        test_board.move(1, "x")
-        test_board.move(1, "x")
-        test_board.move(1, "x")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
       end
 
-      it "returns true as row 1 has winners" do
+      it "returns true as row 1 has winner" do
+        result = test_board.vertical_win?
+        expect(result).to be(true)
+      end
+    end
+
+    context "returns true when player has won vertically with O" do
+      before do
+        test_board.move(3, "O")
+        test_board.move(3, "O")
+        test_board.move(3, "O")
+        test_board.move(3, "O")
+      end
+
+      it "returns true as row 3 has winner" do
         result = test_board.vertical_win?
         expect(result).to be(true)
       end

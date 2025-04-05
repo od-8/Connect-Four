@@ -1,8 +1,9 @@
-# frozen_string_literal: false
-
 # Class that handles players
 class Player
-  def initialize(name)
+  attr_accessor :name, :symbol
+
+  def initialize(name, symbol)
     @name = name # String
+    @symbol = symbol # String
   end
 end

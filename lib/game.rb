@@ -12,9 +12,9 @@ class Game
   # Get names of players
   def obtain_names
     print "Enter the first players name: "
-    @player1 = Player.new(gets.chomp)
+    @player1 = Player.new(gets.chomp, "X")
     print "Enter the second players name: "
-    @player2 = Player.new(gets.chomp)
+    @player2 = Player.new(gets.chomp, "O")
   end
 
   # Handles if someone has won or board is full
