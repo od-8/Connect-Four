@@ -102,4 +102,46 @@ describe Board do # rubocop:disable Metrics/BlockLength
       end
     end
   end
+
+  describe "diagonal_win?" do
+    context "returns true when player has won diagonally with X" do
+      before do
+        test_board.move(1, "X")
+        test_board.move(2, "O")
+        test_board.move(2, "X")
+        test_board.move(3, "O")
+        test_board.move(3, "O")
+        test_board.move(3, "X")
+        test_board.move(4, "O")
+        test_board.move(4, "O")
+        test_board.move(4, "O")
+        test_board.move(4, "X")
+      end
+
+      it "returns true as there is a diagonal upwards winner" do
+        result = test_board.diagonal_win?
+        expect(result).to be(true)
+      end
+    end
+
+    context "returns true when player has won diagonally with O" do
+      before do
+        test_board.move(0, "X")
+        test_board.move(0, "X")
+        test_board.move(0, "X")
+        test_board.move(0, "O")
+        test_board.move(2, "X")
+        test_board.move(2, "X")
+        test_board.move(2, "O")
+        test_board.move(3, "X")
+        test_board.move(3, "O")
+        test_board.move(4, "O")
+      end
+
+      xit "returns true as there is a diagonal downwards winner" do
+        result = test_board.diagonal_win?
+        expect(result).to be(true)
+      end
+    end
+  end
 end
