@@ -1,8 +1,8 @@
-require_relative "lib/game"
-require_relative "lib/board"
-require_relative "lib/player"
-require_relative "lib/linked_list"
-require_relative "lib/nodes"
+require_relative "unfinished_attempt/game"
+require_relative "unfinished_attempt/board"
+require_relative "unfinished_attempt/player"
+require_relative "unfinished_attempt/linked_list"
+require_relative "unfinished_attempt/nodes"
 
 my_game = Game.new
 
