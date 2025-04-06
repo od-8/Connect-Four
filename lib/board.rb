@@ -5,8 +5,8 @@ class Board
   end
 
   def print_board
-    # @board.reverse.each { |row| p row }
     @board.each { |row| p row }
+    # @board.each { |row| p row }
   end
 
   def move(column, letter, index = 0)
@@ -17,16 +17,19 @@ class Board
 
   # Checks if either player has won vertically
   def vertical_win? # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
-    x_counter = Hash.new(0)
-    o_counter = Hash.new(0)
+    @board.each_with_index do |row, row_index|
+      break if row_index > 2
 
-    @board.each do |row|
-      row.each_with_index do |position, position_index|
-        x_counter[position_index] += 1 if position == "X"
-        o_counter[position_index] += 1 if position == "O"
+      row.each_with_index do |_position, position_index|
+        return true if @board[row_index][position_index] == "X" &&
+                       @board[row_index + 1][position_index] == "X" &&
+                       @board[row_index + 2][position_index] == "X" &&
+                       @board[row_index + 3][position_index] == "X"
 
-        return true if x_counter.values.any? { |n| n >= 4 }
-        return true if o_counter.values.any? { |n| n >= 4 }
+        return true if @board[row_index][position_index] == "O" &&
+                       @board[row_index + 1][position_index] == "O" &&
+                       @board[row_index + 2][position_index] == "O" &&
+                       @board[row_index + 3][position_index] == "O"
       end
     end
     false
@@ -49,13 +52,34 @@ class Board
     false
   end
 
-  def diagonal_win?
-    # x_counter = 0
-    # o_counter = 0
-    @board.each_with_index do |row, _row_index|
-      row.each_with_index do |positon, position_index|
-        # difficile
+  def diagonal_win? # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+    @board.each_with_index do |row, row_index|
+      row.each_with_index do |_positon, position_index|
+        if row_index < 3
+          return true if @board[row_index][position_index] == "X" &&
+                         @board[row_index + 1][position_index + 1] == "X" &&
+                         @board[row_index + 2][position_index + 2] == "X" &&
+                         @board[row_index + 3][position_index + 3] == "X"
+
+          return true if @board[row_index][position_index] == "O" &&
+                         @board[row_index + 1][position_index + 1] == "O" &&
+                         @board[row_index + 2][position_index + 2] == "O" &&
+                         @board[row_index + 3][position_index + 3] == "O"
+        end
+
+        if row_index > 2 # rubocop:disable Style/Next
+          return true if @board[row_index][position_index] == "X" &&
+                         @board[row_index - 1][position_index + 1] == "X" &&
+                         @board[row_index - 2][position_index + 2] == "X" &&
+                         @board[row_index - 3][position_index + 3] == "X"
+
+          return true if @board[row_index][position_index] == "O" &&
+                         @board[row_index - 1][position_index + 1] == "O" &&
+                         @board[row_index - 2][position_index + 2] == "O" &&
+                         @board[row_index - 3][position_index + 3] == "O"
+        end
       end
     end
+    false
   end
 end

@@ -63,7 +63,7 @@ describe Board do
   end
 
   describe "#diagonal_win?" do
-    context "returns true as there is an upwards win with 0" do
+    context "returns true as there is a downwards win with X" do
       before do
         test_board.move(0, "X")
         test_board.move(1, "O")
@@ -77,7 +77,27 @@ describe Board do
         test_board.move(3, "X")
       end
 
-      it "returns true as there is a win going up starting from [0, 0]" do
+      it "returns true as there is a win going down starting from [0, 0]" do
+        result = test_board.diagonal_win?
+        expect(result).to eq(true)
+      end
+    end
+
+    context "returns true as there is a upwards win with O" do
+      before do
+        test_board.move(0, "X")
+        test_board.move(0, "X")
+        test_board.move(0, "X")
+        test_board.move(0, "O")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "O")
+        test_board.move(2, "X")
+        test_board.move(2, "O")
+        test_board.move(3, "O")
+      end
+
+      it "returns true as there is a win going up starting from [0, 3]" do
         result = test_board.diagonal_win?
         expect(result).to eq(true)
       end
