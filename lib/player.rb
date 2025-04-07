@@ -3,7 +3,7 @@ class Player
   attr_accessor :name, :symbol
 
   def initialize(name, symbol)
-    @name = name # String
+    @name = name.capitalize # String
     @symbol = symbol # String
   end
 end

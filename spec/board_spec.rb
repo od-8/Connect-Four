@@ -103,4 +103,67 @@ describe Board do
       end
     end
   end
+
+  describe "#full?" do
+    context "returns true when the board is full" do
+      before do
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+        test_board.move(0, "X")
+        test_board.move(1, "X")
+        test_board.move(2, "X")
+        test_board.move(3, "X")
+        test_board.move(4, "X")
+        test_board.move(5, "X")
+        test_board.move(6, "X")
+      end
+
+      it "returns true as the board is full" do
+        result = test_board.full?
+        expect(result).to eq(true)
+      end
+    end
+  end
+
+  describe "#valid_move?" do
+    context "returns true if the move is valid" do
+      it "returns true as move is valid" do
+        result = test_board.valid_move?(5)
+        expect(result).to eq(true)
+      end
+    end
+  end
 end

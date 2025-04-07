@@ -5,11 +5,25 @@ class Board
   end
 
   def print_board
-    @board.each { |row| p row }
-    # @board.each { |row| p row }
+    @board.reverse.each do |row|
+      row.each do |position|
+        if position.nil?
+          print "|   "
+        else
+          print "| #{position} "
+        end
+      end
+      print "|"
+      puts ""
+    end
+    puts "|---|---|---|---|---|---|---|"
+    puts "| 1 | 2 | 3 | 4 | 5 | 6 | 7 |"
+    puts ""
   end
 
   def move(column, letter, index = 0)
+    return "Invalid" if index > 6
+
     move(column, letter, index + 1) unless @board[index][column].nil?
 
     @board[index][column] = letter if @board[index][column].nil?
@@ -80,6 +94,22 @@ class Board
         end
       end
     end
+    false
+  end
+
+  # Something wrong with this i beleive
+  def full?
+    @board.each do |row|
+      row.each do |position|
+        return false if position.nil?
+      end
+    end
+    true
+  end
+
+  def valid_move?(column)
+    return true if column.between?(0, 6)
+
     false
   end
 end
