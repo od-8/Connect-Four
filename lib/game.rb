@@ -1,3 +1,4 @@
+require "colorize"
 # The actual game with methods for playing it
 class Game
   attr_accessor :board
@@ -17,10 +18,12 @@ class Game
 
     game_loop
 
-    message = "Contrats someone won "
-    " #{message}horizontally." if @board.horizontal_win? # rubocop:disable Lint/Void
-    " #{message}vertically." if @board.vertical_win? # rubocop:disable Lint/Void
-    " #{message}diagonally." if @board.diagonal_win?
+    player = @turn.even? ? @player1 : @player2
+
+    message = "Contrats #{player.name} won "
+    puts " #{message}horizontally!" if @board.horizontal_win?
+    puts " #{message}vertically!" if @board.vertical_win?
+    puts " #{message}diagonally!" if @board.diagonal_win?
   end
 
   def obtain_names
@@ -35,15 +38,8 @@ class Game
     puts " #{@player2.name} will have the symbol 'O' "
   end
 
-  def details # rubocop:disable Metrics/MethodLength
-    puts ""
-    puts " Each player gets a go and you will keep on playing untill someone wins or the board if full"
-    puts ""
-    sleep 2
+  def details
     puts " You must input a number between 1 and 7 inclusive"
-    puts ""
-    sleep 2
-    puts " Which ever number you choose will be the column which your symbol wil be added to"
     puts ""
     sleep 2
     puts " The board looks like this"
@@ -52,9 +48,9 @@ class Game
     @board.print_board
   end
 
-  def game_loop # rubocop:disable Metrics/MethodLength,Metrics/AbcSize,Metrics/CyclomaticComplexity
+  def game_loop # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
     until @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win? || @board.full?
-      player = @turn.even? ? @player1 : @player2
+      player = (@turn - 1).even? ? @player1 : @player2
       move = nil
 
       until move == true
@@ -66,12 +62,7 @@ class Game
         puts ""
       end
 
-      go = @board.move(column - 1, player.symbol)
-
-      if go == "Invalid"
-        puts "INVALID move"
-        next
-      end
+      @board.move(column - 1, player.symbol)
 
       @board.print_board
       @turn += 1

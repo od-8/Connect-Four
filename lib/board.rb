@@ -1,3 +1,5 @@
+require "colorize"
+
 # This is the board itself
 class Board
   def initialize
@@ -9,8 +11,10 @@ class Board
       row.each do |position|
         if position.nil?
           print "|   "
-        else
-          print "| #{position} "
+        elsif position == "X"
+          print "| #{position.colorize(:red)} "
+        elsif position == "O"
+          print "| #{position.colorize(:yellow)} "
         end
       end
       print "|"
@@ -22,7 +26,7 @@ class Board
   end
 
   def move(column, letter, index = 0)
-    return "Invalid" if index > 6
+    return index if index == 6
 
     move(column, letter, index + 1) unless @board[index][column].nil?
 
