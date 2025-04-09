@@ -3,17 +3,15 @@ require_relative "lib/game"
 require_relative "lib/player"
 require "colorize"
 
-test_game = Game.new
+# test_game = Game.new
 
-# test_game.board.move(0, "X")
-# test_game.board.move(1, "O")
-# test_game.board.move(1, "X")
-# test_game.board.move(2, "O")
-# test_game.board.move(2, "O")
-# test_game.board.move(2, "X")
-# test_game.board.move(3, "O")
-# test_game.board.move(3, "O")
-# test_game.board.move(3, "O")
-# test_game.board.move(3, "X")
+# test_game.start_game
 
-test_game.start_game
+i = 0
+9.times do
+  puts " | #{i += 1} |"
+end
+
+# print "\033[10A"
+# print "\e[2K\e[G"
+print "\e[3A\e[2K"
