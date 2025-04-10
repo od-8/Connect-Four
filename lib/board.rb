@@ -8,6 +8,7 @@ class Board
 
   # Method that print the board simply and easy to understand
   def print_board # rubocop:disable Metrics/MethodLength
+    puts ""
     @board.reverse.each do |row| # reverse the board as its upside down if you dont reverse it
       row.each do |position|
         if position.nil?

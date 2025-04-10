@@ -8,26 +8,21 @@ class Game
     @turn = 1
   end
 
-  def start_game # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-    # Starts of the game printing the board and getting the name of each of the players
-    if @turn == 1
-      details
-      puts ""
-      obtain_names
-      puts ""
-    end
+  def start_game # rubocop:disable Metrics/MethodLength
+    obtain_names
+    @board.print_board
 
     # This repeats until someone wins or the board is full
     game_loop
 
     player = @turn.even? ? @player1 : @player2
 
-    message = " Contratulations #{player.name} won "
+    message = " Contratulations #{player.name.colorize(:green)} won "
     puts "#{message}horizontally!" if @board.horizontal_win?
     puts "#{message}vertically!" if @board.vertical_win?
     puts "#{message}diagonally!" if @board.diagonal_win?
 
-    sleep 5
+    sleep 3
 
     another_game
     puts ""
@@ -35,6 +30,7 @@ class Game
 
   # Gets the name of each of the player and gives them there symbols
   def obtain_names
+    puts ""
     puts " Who will be playing?"
     puts ""
     print " Enter the first players name: "
@@ -44,19 +40,6 @@ class Game
     puts ""
     puts " #{@player1.name} will have the symbol X "
     puts " #{@player2.name} will have the symbol O "
-  end
-
-  # Basic display to help user understand how to play the game
-  def details
-    puts ""
-    puts " This game has the basic rules of connect four."
-    puts ""
-    sleep 2
-    puts " The board you will be playing on looks like this: "
-    sleep 1.5
-    puts ""
-    @board.print_board
-    sleep 1.5
   end
 
   # This is basic loops that repeats until someone wins or board is full
@@ -77,20 +60,27 @@ class Game
 
       @board.move(column - 1, player.symbol) # Decrements column by 1 as arrays use zero base indexing
 
+      print "\e[13A\e[J"
       @board.print_board
     end
   end
 
-  def another_game
+  def another_game # rubocop:disable Metrics/MethodLength
     puts ""
     puts " Would you like to player another game?"
     puts ""
     print " Input y or n: "
     result = gets.chomp.downcase
 
-    return unless result == "y"
+    if result == "y"
 
-    new_game = Game.new
-    new_game.start_game
+      print "\e[23A\e[J"
+      new_game = Game.new
+      new_game.start_game
+    else
+      puts ""
+      puts ""
+      puts "  Thank you for playing connect four."
+    end
   end
 end
