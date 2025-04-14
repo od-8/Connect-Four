@@ -1,4 +1,7 @@
+require_relative "../lib/board"
+require_relative "../lib/player"
 require "colorize"
+
 # Contains all the methods to play the game
 class Game
   attr_accessor :board

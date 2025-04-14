@@ -1,22 +1,23 @@
+# This file has all the tests for the board class
 require_relative "../lib/board"
 
-describe Board do
+describe Board do # rubocop:disable Metrics/BlockLength
   subject(:test_board) { described_class.new }
 
   describe "#move" do
-    context "when the first row is empty" do
+    context "adds symbol to first row of first column as its empty" do
       before do
         test_board.move(0, "X")
       end
 
-      it "board should now have X at cords [0, 0]" do
+      it "board now has x at [0,0]" do
         board = test_board.instance_variable_get(:@board)
         position = board[0][0]
         expect(position).to eq("X")
       end
     end
 
-    context "when the first row is full so it goes to second row" do
+    context "adds symbol to second row of first column as first row is full of first column is full" do
       before do
         test_board.move(0, "X")
         test_board.move(0, "O")
@@ -31,7 +32,7 @@ describe Board do
   end
 
   describe "#vertical_win?" do
-    context "returns true as there is a win with X" do
+    context "returns true when someone wins vertically" do
       before do
         test_board.move(2, "X")
         test_board.move(2, "X")
@@ -47,7 +48,7 @@ describe Board do
   end
 
   describe "#horizontal_win?" do
-    context "returns true as there is a win with O" do
+    context "returns true when someone wins horizontally" do
       before do
         test_board.move(2, "O")
         test_board.move(3, "O")
@@ -55,15 +56,15 @@ describe Board do
         test_board.move(5, "O")
       end
 
-      it "returns true as there is a win on bottom row" do
+      it "returns true as there is a win on the first row" do
         result = test_board.horizontal_win?
         expect(result).to eq(true)
       end
     end
   end
 
-  describe "#diagonal_win?" do
-    context "returns true as there is a downwards win with X" do
+  describe "#diagonal_win?" do # rubocop:disable Metrics/BlockLength
+    context "returns true when someone wins diagonally down" do
       before do
         test_board.move(0, "X")
         test_board.move(1, "O")
@@ -83,7 +84,7 @@ describe Board do
       end
     end
 
-    context "returns true as there is a upwards win with O" do
+    context "returns true when someone wins diagonally up" do
       before do
         test_board.move(0, "X")
         test_board.move(0, "X")
@@ -97,16 +98,16 @@ describe Board do
         test_board.move(3, "O")
       end
 
-      it "returns true as there is a win going up starting from [0, 3]" do
+      it "returns true as there is a win going up starting from [3, 0]" do
         result = test_board.diagonal_win?
         expect(result).to eq(true)
       end
     end
   end
 
-  describe "#full?" do
-    context "returns true when the board is full" do
-      before do
+  describe "#full?" do # rubocop:disable Metrics/BlockLength
+    context "returns true when the board is full" do # rubocop:disable Metrics/BlockLength
+      before do # rubocop:disable Metrics/BlockLength
         test_board.move(0, "X")
         test_board.move(1, "X")
         test_board.move(2, "X")
@@ -163,6 +164,13 @@ describe Board do
       it "returns true as move is valid" do
         result = test_board.valid_move?(5)
         expect(result).to eq(true)
+      end
+    end
+
+    context "returns false if the move is invalid" do
+      it "returns false as column doesnt exist" do
+      result = test_board.valid_move?(10)
+      expect(result).to eq(false)
       end
     end
   end
