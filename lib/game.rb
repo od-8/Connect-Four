@@ -6,9 +6,9 @@ require "colorize"
 class Game
   attr_accessor :board
 
-  def initialize
-    @board = Board.new
-    @turn = 1
+  def initialize(board = Board.new, turn = 1)
+    @board = board
+    @turn = turn
   end
 
   def start_game # rubocop:disable Metrics/MethodLength
