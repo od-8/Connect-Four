@@ -17,10 +17,11 @@ describe Game do
     # No test needed as it only creates instance variables
   end
 
+  # I know this test is wrong but i don't know how to make it work
   describe "#obtain_names" do
     context "make sure it returns winning message" do
       before do
-        allow(obtain_names).to receive(:gets).and_return("Jim", "Board")
+        allow(test_game.obtain_names).to receive(:gets).and_return("Bob", "Jim")
       end
 
       it "sets up two new instances of player class" do
