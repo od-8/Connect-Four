@@ -169,8 +169,8 @@ describe Board do # rubocop:disable Metrics/BlockLength
 
     context "returns false if the move is invalid" do
       it "returns false as column doesnt exist" do
-      result = test_board.valid_move?(10)
-      expect(result).to eq(false)
+        result = test_board.valid_move?(10)
+        expect(result).to eq(false)
       end
     end
   end

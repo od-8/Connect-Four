@@ -3,8 +3,55 @@ require_relative "lib/game"
 require_relative "lib/player"
 require "colorize"
 
-test_game = Game.new
-test_game.start_game
+def print_name # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  puts ""
+  puts ""
+  puts ""
+  puts '                     /-------|      /--------\      |------\         |---|   |------\         |---|  |----------|     /-------|  |---------------|' # rubocop:disable Layout/LineLength
+  puts '                    /  /-----|     /  /----\  \     |       \        |   |   |       \        |   |  |   |------|    /  /-----|  |-----|   |-----|' # rubocop:disable Layout/LineLength
+  puts '                   /  /           /  /      \  \    |   |\   \       |   |   |   |\   \       |   |  |   |          /  /               |   |' # rubocop:disable Layout/LineLength
+  puts '                  |  |           |  |        |  |   |   | \   \      |   |   |   | \   \      |   |  |   |         |  |                |   |' # rubocop:disable Layout/LineLength
+  puts '                  |  |           |  |        |  |   |   |  \   \     |   |   |   |  \   \     |   |  |   |         |  |                |   |' # rubocop:disable Layout/LineLength
+  puts '                  |  |           |  |        |  |   |   |   \   \    |   |   |   |   \   \    |   |  |   |----|    |  |                |   |' # rubocop:disable Layout/LineLength
+  puts '                  |  |           |  |        |  |   |   |    \   \   |   |   |   |    \   \   |   |  |   |         |  |                |   |' # rubocop:disable Layout/LineLength
+  puts '                  |  |           |  |        |  |   |   |     \   \  |   |   |   |     \   \  |   |  |   |         |  |                |   |' # rubocop:disable Layout/LineLength
+  puts '                   \  \           \  \      /  /    |   |      \   \ |   |   |   |      \   \ |   |  |   |          \  \               |   |' # rubocop:disable Layout/LineLength
+  puts '                    \  \-----|     \  \----/  /     |   |       \   \|   |   |   |       \   \|   |  |   |------|    \  \-----|        |   |' # rubocop:disable Layout/LineLength
+  puts '                     \-------|      \--------/      |---|        \-------|   |---|        \-------|  |----------|     \-------|        |---|' # rubocop:disable Layout/LineLength
+  puts ""
+  puts ""
+  puts '                                                   |----------|     /--------\     |--|        |--|  |--------\ ' # rubocop:disable Layout/LineLength
+  puts '                                                   |   |------|    /  /----\  \    |  |        |  |  |    /\   |' # rubocop:disable Layout/LineLength
+  puts '                                                   |   |          /  /      \  \   |  |        |  |  |    \/   |' # rubocop:disable Layout/LineLength
+  puts "                                                   |   |         |  |        |  |  |  |        |  |  |   |----/"
+  puts '                                                   |   |---|     |  |        |  |  |  |        |  |  |      \ '
+  puts '                                                   |   |---|     |  |        |  |  |  |        |  |  |   \   \ '
+  puts '                                                   |   |         |  |        |  |  |  |        |  |  |   |\   \ ' # rubocop:disable Layout/LineLength
+  puts '                                                   |   |         |  |        |  |  |  |        |  |  |   | \   \ ' # rubocop:disable Layout/LineLength
+  puts '                                                   |   |          \  \      /  /   |   \      /   |  |   |  \   \ ' # rubocop:disable Layout/LineLength
+  puts '                                                   |   |           \  \----/  /     \   \----/   /   |   |   \   \ ' # rubocop:disable Layout/LineLength
+  puts '                                                   |---|            \--------/       \----------/    |---|    \---\ ' # rubocop:disable Layout/LineLength
+  puts ""
+  puts ""
+  puts ""
+end
+
+print_name
+
+puts " Who will be playing?".center(160)
+puts ""
+print "                                                                Enter the first players name: "
+player1 = Player.new(gets.chomp, "X")
+puts ""
+print "                                                                Enter the second players name: "
+player2 = Player.new(gets.chomp, "O")
+puts ""
+puts ""
+puts "#{player1.name} will have the symbol X ".center(162)
+puts "#{player2.name} will have the symbol O ".center(162)
+
+test_game = Game.new(Board.new, player1, player2)
+test_game.play_game
 
 # Whats left that needs to be done
 # 1 - Make it illegal if user adds disc to full column

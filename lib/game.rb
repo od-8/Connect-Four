@@ -6,21 +6,20 @@ require "colorize"
 class Game
   attr_accessor :board
 
-  def initialize(board = Board.new, turn = 1)
+  def initialize(board, player1, player2)
     @board = board
-    @turn = turn
+    @player1 = player1
+    @player2 = player2
+    @current_player = @player2
   end
 
-  def start_game # rubocop:disable Metrics/MethodLength
-    obtain_names
+  def play_game
     @board.print_board
 
     # This repeats until someone wins or the board is full
     game_loop
 
-    player = @turn.even? ? @player1 : @player2
-
-    message = " Contratulations #{player.name.colorize(:green)} won "
+    message = " Contratulations #{@current_player.name.colorize(:green)} won "
     puts "#{message}horizontally!" if @board.horizontal_win?
     puts "#{message}vertically!" if @board.vertical_win?
     puts "#{message}diagonally!" if @board.diagonal_win?
@@ -31,29 +30,20 @@ class Game
     puts ""
   end
 
-  # Gets the name of each of the player and gives them there symbols
-  def obtain_names
-    puts ""
-    puts " Who will be playing?"
-    puts ""
-    print " Enter the first players name: "
-    @player1 = Player.new(gets.chomp, "X")
-    print " Enter the second players name: "
-    @player2 = Player.new(gets.chomp, "O")
-    puts ""
-    puts " #{@player1.name} will have the symbol X "
-    puts " #{@player2.name} will have the symbol O "
+  # Updates current player, it sets current player to whoever it isnt right now
+  def update_turn
+    @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
-  # This is basic loops that repeats until someone wins or board is full
+  # This is the loop that handles the functionality, it repeats until there is a winner or the board is full
   def game_loop # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
     until @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win? || @board.full?
-      @turn += 1
-      player = @turn.even? ? @player1 : @player2
+      update_turn
+
       move = nil
 
-      until move == true # repeats until the move is valid, number between 1, 7
-        print " #{player.name}, input a number between 1 and 7: "
+      until move == true # repeats until the move is valid, inputs is a number between 1, 7
+        print " #{@current_player.name}, input a number between 1 and 7: "
         column = gets.chomp.to_i
 
         move = @board.valid_move?(column - 1)
@@ -61,13 +51,14 @@ class Game
         puts ""
       end
 
-      @board.move(column - 1, player.symbol) # Decrements column by 1 as arrays use zero base indexing
+      @board.move(column - 1, @current_player.symbol) # Decrements column by 1 as arrays use zero base indexing
 
       print "\e[13A\e[J"
       @board.print_board
     end
   end
 
+  # This asks for another game, it creates a new board but keeps the same players
   def another_game # rubocop:disable Metrics/MethodLength
     puts ""
     puts " Would you like to player another game?"
@@ -76,10 +67,9 @@ class Game
     result = gets.chomp.downcase
 
     if result == "y"
-
       print "\e[23A\e[J"
-      new_game = Game.new
-      new_game.start_game
+      new_game = Game.new(Board.new, @player1, @player2)
+      new_game.play_game
     else
       puts ""
       puts ""
