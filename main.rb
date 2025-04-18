@@ -59,3 +59,17 @@ test_game.play_game
 # 3 - Fix and rework the winning methods that aren't written well
 # 4 - Rework tests for board
 # 5 - Add tests for game
+
+# For the diagonal win it could look something like
+# @board.each_with_index do |row, row_index|
+#   row.each_with_index do |column, column_index|
+#     if @board[row_index + 1][column_index + 1] == x
+#.      x_counter += 1
+#.    else 
+#.      x_counter = 0
+#.    end
+#   end
+# end
+
+# This coulde handle x going up but would also need to do going down
+# Wouls need to do for o aswell
