@@ -27,15 +27,23 @@ class Board
     puts ""
   end
 
-  def move(column, letter, index = 0)
-    return index if index == 6 # Handles if the column is full
+  # Checks if the row is full so users move is invalid
+  def full_row?(column)
+    counter = 0
 
-    # Checks if row 0 is empty as that bottom of board
+    @board.each_with_index do |_row, row_index|
+      counter += 1 unless @board[row_index][column].nil?
+    end
+
+    true if counter == 6
+  end
+
+  # Repats untill if finds the first availbale space in a column
+  def move(column, letter, index = 0)
     if @board[index][column].nil?
-      @board[index][column] = letter # If column 0 is nil then it sets it equal to the letter
+      @board[index][column] = letter
     else
-      # The index + 1 increments the row, so every time index increments it moves up 1 row
-      move(column, letter, index + 1) # If row 0 is not nil then it calls itself until it is nil
+      move(column, letter, index + 1)
     end
   end
 
