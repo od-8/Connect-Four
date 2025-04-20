@@ -86,10 +86,10 @@ test_game.play_game
 # @board.each_with_index do |row, row_index|
 #   row.each_with_index do |column, column_index|
 #     if @board[row_index + 1][column_index + 1] == x
-#.      x_counter += 1
-#.    else 
-#.      x_counter = 0
-#.    end
+#      x_counter += 1
+#    else
+#      x_counter = 0
+#    end
 #   end
 # end
 
