@@ -1,6 +1,9 @@
 # This file has all the tests for the board class
 require_relative "../lib/board"
 
+# Methods that need testing
+# full_row?
+
 describe Board do # rubocop:disable Metrics/BlockLength
   subject(:test_board) { described_class.new }
 
@@ -171,6 +174,24 @@ describe Board do # rubocop:disable Metrics/BlockLength
       it "returns false as column doesnt exist" do
         result = test_board.valid_move?(10)
         expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe "#full_row?" do
+    context "returns true if the row is full" do
+      before do
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+        test_board.move(1, "X")
+      end
+
+      it "returns true as row is full" do
+        result = test_board.full_row?(1)
+        expect(result).to eq(true)
       end
     end
   end
