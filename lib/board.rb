@@ -1,7 +1,7 @@
 require "colorize"
 
 # Contains the board and all of its methods like if someone's one or board if full
-class Board
+class Board # rubocop:disable Metrics/ClassLength
   def initialize
     @board = Array.new(6) { Array.new(7) }
   end
@@ -115,23 +115,6 @@ class Board
     end
     false
   end
-  # def diagonal_win?
-  #   x_counter = 0
-  #   o_counter = 0
-  #   @board.each_with_index do |row, row_index|
-  #     row.each_with_index do |column, column_index|
-  #       postiton = @board[row_index, column_index]
-
-  #       if row_index < 3
-
-  #       end
-
-  #       if row_index > 2
-
-  #       end
-  #     end
-  #   end
-  # end
 
   # Check each position and if any of them are nil then board is not full
   def full?
