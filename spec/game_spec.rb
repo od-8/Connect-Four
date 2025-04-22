@@ -2,11 +2,11 @@
 require_relative "../lib/game"
 
 describe Game do
-  describe "#another_game" do
-    # Tests to make sure it starts another game
+  describe "#game_loop" do
+    # Tests will be here
   end
 
-  describe "#play_game" do
-    # Tests the game itself
+  describe "#player_turn" do
+    # Tests will be here
   end
 end

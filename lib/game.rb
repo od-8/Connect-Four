@@ -44,14 +44,12 @@ class Game
   # Repeats until players move is valid
   def player_turn
     invalid_moves = 10
-    column = nil
+    column = 10
 
-    loop do
+    until valid_move?(column) && !full_row?(column)
       print " #{@current_player.name}, input a number between 1 and 7: "
       column = gets.chomp.to_i - 1
       invalid_moves += 2
-
-      break if valid_move?(column) && !full_row?(column)
     end
 
     [column, invalid_moves]
