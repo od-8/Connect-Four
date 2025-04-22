@@ -13,42 +13,63 @@ class Game
     @current_player = @player2
   end
 
-  # Game method itself, handles the loop and returns winner message, board full message and asks for another game
-  def play_game # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # Game method itself, handles the loops, if theres a winner, board if full and asks for another game
+  def play_game
     @board.print_board
 
-    # This repeats until someone wins or the board is full
-    until @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win? || @board.full?
+    game_loop
+    winner
+    full_board
+
+    sleep 3
+
+    another_game
+    puts ""
+  end
+
+  # Repeats untill someone wins or board is full
+  def game_loop
+    until game_over?
       update_turn
 
-      invalid_moves = 11
+      column, invalid_moves = player_turn
 
-      valid_move = nil
-      full_row = nil
-
-      # Repeats untill user input is between 1-7 and that row isnt full
-      until valid_move == true && full_row != true
-        print " #{@current_player.name}, input a number between 1 and 7: "
-        column = gets.chomp.to_i
-        valid_move = @board.valid_move?(column - 1)
-        full_row = @board.full_row?(column - 1)
-        puts ""
-        invalid_moves += 2
-      end
-
-      @board.move(column - 1, @current_player.symbol)
+      @board.move(column, @current_player.symbol)
       puts ""
       print "\e[#{invalid_moves}A\e[J"
       @board.print_board
     end
+  end
 
-    winner # Handles the message if someone wins
-    full # Handles the messgae if the board is full
+  # Repeats until players move is valid
+  def player_turn
+    invalid_moves = 10
+    column = nil
 
-    sleep 3
+    loop do
+      print " #{@current_player.name}, input a number between 1 and 7: "
+      column = gets.chomp.to_i - 1
+      invalid_moves += 2
 
-    another_game # Asks if the player would like another game
-    puts ""
+      break if valid_move?(column) && !full_row?(column)
+    end
+
+    [column, invalid_moves]
+  end
+
+  # Checks if someone wins or board if full
+  def game_over?
+    @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win? || @board.full?
+  end
+
+  # Checks if move is valid
+  def valid_move?(column)
+    @board.valid_move?(column)
+  end
+
+  # Checks if the row is full
+  def full_row?(column)
+    @board.full_row?(column)
   end
 
   # Updates current player, it sets current player to whoever it isnt right now
@@ -65,7 +86,7 @@ class Game
   end
 
   # Returns the message if the board is full and no one won
-  def full
+  def full_board
     puts "Unlucky players, the board is full so neither of you won." if @board.full?
   end
 
@@ -85,7 +106,7 @@ class Game
       puts ""
       puts ""
       puts ""
-      puts "  Thank you for playing connect four.".colorize(:green).center(175)
+      puts "  Thank you for playing Connect Four.".colorize(:green).center(175)
       puts ""
       puts ""
       puts ""
