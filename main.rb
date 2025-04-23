@@ -66,7 +66,7 @@ def play_connect4 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   puts "#{player1.name} will have the symbol #{'X'.colorize(:red)}".center(175)
   puts "#{player2.name} will have the symbol #{'O'.colorize(:yellow)}".center(175)
 
-  test_game = Game.new(Board.new, player1, player2)
+  test_game = Game.new(player1, player2)
   test_game.play_game
 end
 

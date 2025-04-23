@@ -35,7 +35,7 @@ class Board # rubocop:disable Metrics/ClassLength
       counter += 1 unless @board[row_index][column].nil?
     end
 
-    true if counter == 6
+    counter == 6
   end
 
   # Repats untill if finds the first availbale space in a column

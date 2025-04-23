@@ -6,7 +6,7 @@ require "colorize"
 class Game
   attr_accessor :board
 
-  def initialize(board, player1, player2)
+  def initialize(player1, player2, board = Board.new)
     @board = board
     @player1 = player1
     @player2 = player2
@@ -43,13 +43,14 @@ class Game
 
   # Repeats until players move is valid
   def player_turn
-    invalid_moves = 10
+    invalid_moves = 11
     column = 10
 
     until valid_move?(column) && !full_row?(column)
       print " #{@current_player.name}, input a number between 1 and 7: "
       column = gets.chomp.to_i - 1
       invalid_moves += 2
+      puts ""
     end
 
     [column, invalid_moves]
@@ -98,7 +99,7 @@ class Game
 
     if result == "y"
       print "\e[14A\e[J"
-      new_game = Game.new(Board.new, @player1, @player2)
+      new_game = Game.new(@player1, @player2)
       new_game.play_game
     else
       puts ""
