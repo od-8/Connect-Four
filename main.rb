@@ -58,13 +58,10 @@ def play_connect4 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     player2 = gets.chomp
   end
 
-  player1 = Player.new(player1, "X")
-  player2 = Player.new(player2, "O")
-
   puts ""
   puts ""
-  puts "#{player1.name} will have the symbol #{'X'.colorize(:red)}".center(175)
-  puts "#{player2.name} will have the symbol #{'O'.colorize(:yellow)}".center(175)
+  puts "#{player1} will have the symbol #{'X'.colorize(:red)}".center(175)
+  puts "#{player2} will have the symbol #{'O'.colorize(:yellow)}".center(175)
 
   test_game = Game.new(player1, player2)
   test_game.play_game

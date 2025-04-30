@@ -2,8 +2,8 @@ require "colorize"
 
 # Contains the board and all of its methods like if someone's one or board if full
 class Board # rubocop:disable Metrics/ClassLength
-  def initialize
-    @board = Array.new(6) { Array.new(7) }
+  def initialize(array)
+    @board = array
   end
 
   # Method that print the board simply and easy to understand

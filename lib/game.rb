@@ -6,10 +6,10 @@ require "colorize"
 class Game
   attr_accessor :board
 
-  def initialize(player1, player2, board = Board.new)
-    @board = board
-    @player1 = player1
-    @player2 = player2
+  def initialize(player1, player2, board = Array.new(6) { Array.new(7) })
+    @board = Board.new(board)
+    @player1 = Player.new(player1, "X")
+    @player2 = Player.new(player2, "O")
     @current_player = @player2
   end
 
@@ -42,14 +42,18 @@ class Game
   end
 
   # Repeats until players move is valid
-  def player_turn
+  def player_turn # rubocop:disable Metrics/MethodLength
     invalid_moves = 11
     column = 10
 
-    until valid_move?(column) && !full_row?(column)
+    loop do
       print " #{@current_player.name}, input a number between 1 and 7: "
       column = gets.chomp.to_i - 1
       invalid_moves += 2
+      puts ""
+      break if valid_move?(column) && !full_row?(column)
+
+      puts "Input error, enter a valid column"
       puts ""
     end
 
@@ -99,7 +103,7 @@ class Game
 
     if result == "y"
       print "\e[14A\e[J"
-      new_game = Game.new(@player1, @player2)
+      new_game = Game.new(@player1.name, @player2.name)
       new_game.play_game
     else
       puts ""
