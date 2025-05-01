@@ -68,3 +68,5 @@ def play_connect4 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 end
 
 play_connect4
+
+# This is a tast, new computer, make sure work
