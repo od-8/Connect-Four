@@ -12,6 +12,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
 
   describe "#game_loop" do
     subject(:finished_game) { described_class.new(player1, player2) }
+
     context "when game_over? is false once" do
       before do
         allow(finished_game).to receive(:game_over?).and_return(false, true)
@@ -23,6 +24,20 @@ describe Game do # rubocop:disable Metrics/BlockLength
         expect(finished_game).to recieve(:player_turn).once
         expect(finished_game).to receive(:move).with()
         finished_game.game_loop
+      end
+    end
+
+    context "when column is 5 sends calls board.#move" do
+      before do
+        valid_move = 5
+        allow(finished_game).to receive(:player_turn).and_return([valid_move - 1, 13])
+      end
+
+      it "expect board to receive #move with 5" do
+        current_player = instance_variable_get(:@current_player)
+        board = instance_variable_get(:@board)
+        expect(board).to receive(:move).with(4, "X")
+        # finished_game.game_loop
       end
     end
   end
@@ -63,7 +78,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         allow(input_game).to receive(:gets).and_return(valid_input)
       end
 
-      it "returns [column, invalid_moves]" do
+      it "returns [column - 1, invalid_moves]" do
         expect(input_game).to receive(:puts).with("").once
         return_arr = input_game.player_turn
         expect(return_arr).to eq([5, 13])
