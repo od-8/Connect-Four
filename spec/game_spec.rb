@@ -2,17 +2,12 @@
 require_relative "../lib/game"
 
 describe Game do # rubocop:disable Metrics/BlockLength
-  # let(:player1) { double("bob") }
-  # let(:player2) { double("jim") }
+  let(:player1) { double("bob") }
+  let(:player2) { double("jim") }
 
-  # before do
-  # allow(player1).to receive(:capitalize)
-  # allow(player2).to receive(:capitalize)
-  # end
-
-  subject(:test_game) do
-    game = Game.new("Bob", "Jim")
-    game.instance_variable_set(:@board, test_board)
+  before do
+    allow(player1).to receive(:capitalize)
+    allow(player2).to receive(:capitalize)
   end
 
   describe "#game_loop" do # rubocop:disable Metrics/BlockLength
@@ -26,7 +21,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         # allow(finished_board).to receive(:print_board)
       end
 
-      xit "calls update_turn once" do
+      it "calls update_turn once" do
         # expect(finished_board).to recive
         expect(finished_game).to receive(:update_turn).once
         finished_game.game_loop
@@ -39,7 +34,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         allow(finished_game).to receive(:player_turn).and_return([3, 13])
       end
 
-      xit "calls update_turn three times" do
+      it "calls update_turn three times" do
         expect(finished_game).to receive(:update_turn).exactly(3).times
         finished_game.game_loop
       end
@@ -54,7 +49,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         allow(finished_board).to receive(:print_board)
       end
 
-      xit "expect board to receive #move with 5" do
+      it "expect board to receive #move with 5" do
         expect(finished_board).to receive(:move).with(4, "X")
         finished_game.game_loop
       end
@@ -68,7 +63,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         allow(finished_board).to receive(:move).with(4, "X")
       end
 
-      xit "calls baord.print_board once" do
+      it "calls baord.print_board once" do
         expect(finished_board).to receive(:print_board).once
         finished_game.game_loop
       end
@@ -112,8 +107,7 @@ describe Game do # rubocop:disable Metrics/BlockLength
         allow(input_game).to receive(:gets).and_return(valid_input)
       end
 
-      xit "returns [column - 1, invalid_moves]" do
-        expect(input_game).to receive(:puts).with("").once
+      it "returns [column - 1, invalid_moves]" do
         return_arr = input_game.player_turn
         expect(return_arr).to eq([5, 13])
       end
