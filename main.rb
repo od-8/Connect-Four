@@ -17,27 +17,27 @@ def play_connect4 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 
   puts " Who will be playing?"
   puts ""
-  print "Enter the first players name: "
+  print " Enter the first players name: "
   player1 = gets.chomp
-  print "Enter the second players name: "
+  print " Enter the second players name: "
   player2 = gets.chomp
 
   until player1 != player2
     puts ""
     puts ""
-    puts "Your names cannot be the same.".colorize(:red)
+    puts " Your names cannot be the same.".colorize(:red)
     puts ""
-    print "Enter the first players name: "
+    print " Enter the first players name: "
     player1 = gets.chomp
     puts ""
-    print "Enter the second players name: "
+    print " Enter the second players name: "
     player2 = gets.chomp
   end
 
   puts ""
   puts ""
-  puts "#{player1} will have the symbol #{'X'.colorize(:red)}"
-  puts "#{player2} will have the symbol #{'O'.colorize(:yellow)}"
+  puts " #{player1} will have the symbol #{'X'.colorize(:red)}"
+  puts " #{player2} will have the symbol #{'O'.colorize(:yellow)}"
 
   test_game = Game.new(player1, player2)
   test_game.play_game
