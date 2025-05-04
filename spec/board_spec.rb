@@ -5,7 +5,7 @@ require_relative "../lib/board"
 # full_row?
 
 describe Board do # rubocop:disable Metrics/BlockLength
-  subject(:test_board) { described_class.new }
+  subject(:test_board) { described_class.new(Array.new(6) { Array.new(7)} ) }
 
   describe "#move" do
     context "adds symbol to first row of first column as its empty" do
