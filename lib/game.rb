@@ -24,7 +24,7 @@ class Game
     sleep 3
 
     another_game
-    print "\n"
+    puts ""
   end
 
   # Repeats untill someone wins or board is full
@@ -35,7 +35,7 @@ class Game
       column, invalid_moves = player_turn
 
       @board.move(column, @current_player.symbol)
-      print "\n"
+      puts ""
       print "\e[#{invalid_moves}A\e[J"
       @board.print_board
     end
@@ -50,11 +50,11 @@ class Game
       print " #{@current_player.name}, input a number between 1 and 7: "
       column = gets.chomp.to_i - 1
       invalid_moves += 4
-      print "\n"
+      puts ""
       break if valid_move?(column) && !full_row?(column)
 
       puts " Input error, enter a valid column"
-      print "\n"
+      puts ""
     end
 
     [column, invalid_moves]
@@ -95,9 +95,9 @@ class Game
 
   # This asks for another game, it creates a new board but keeps the same players
   def another_game # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-    print "\n"
+    puts ""
     puts " Would you like to player another game?"
-    print "\n"
+    puts ""
     print " Input y or n: "
     result = gets.chomp.downcase
 
@@ -108,10 +108,7 @@ class Game
     else
       puts ""
       puts ""
-      puts ""
-      puts "  Thank you for playing Connect Four.".colorize(:green).center(175)
-      puts ""
-      puts ""
+      puts " Thank you for playing Connect Four.".colorize(:green)
       puts ""
     end
   end
