@@ -48,23 +48,32 @@ class Board # rubocop:disable Metrics/ClassLength
   end
 
   # Checks if either player has won vertically
-  def vertical_win? # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+  def vertical_win?
     @board.each_with_index do |row, row_index|
-      break if row_index > 2 # Stops when board is greater than half way as its impossible to have a win
+      row.each_with_index do |column, column_index|
+        if %w[X O].include?(column)
+          result = vertical_algorithim([row_index, column_index], column)
+        end
 
-      row.each_with_index do |_position, position_index|
-        return true if @board[row_index][position_index] == "X" &&
-                       @board[row_index + 1][position_index] == "X" &&
-                       @board[row_index + 2][position_index] == "X" &&
-                       @board[row_index + 3][position_index] == "X"
-
-        return true if @board[row_index][position_index] == "O" &&
-                       @board[row_index + 1][position_index] == "O" &&
-                       @board[row_index + 2][position_index] == "O" &&
-                       @board[row_index + 3][position_index] == "O"
+        return true if result == true
       end
     end
     false
+  end
+
+  # Checks if there is a win in a column
+  def vertical_algorithim(position, letter)
+    counter = 0
+    index = 0
+
+    loop do
+      break unless @board[position[0]][position[1]] == letter
+
+      counter += 1  
+      position = [position[0] + 1, position[1]]
+
+      return true if counter == 4
+    end
   end
 
   # Checks if either player has won horizontally
@@ -85,35 +94,50 @@ class Board # rubocop:disable Metrics/ClassLength
   end
 
   # Checks if either player has won diagonally
-  def diagonal_win? # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+  def diagonal_win?
     @board.each_with_index do |row, row_index|
-      row.each_with_index do |_positon, position_index|
-        if row_index < 3
-          return true if @board[row_index][position_index] == "X" &&
-                         @board[row_index + 1][position_index + 1] == "X" &&
-                         @board[row_index + 2][position_index + 2] == "X" &&
-                         @board[row_index + 3][position_index + 3] == "X"
-
-          return true if @board[row_index][position_index] == "O" &&
-                         @board[row_index + 1][position_index + 1] == "O" &&
-                         @board[row_index + 2][position_index + 2] == "O" &&
-                         @board[row_index + 3][position_index + 3] == "O"
+      row.each_with_index do |column, column_index|
+        if %w[X O].include?(column)
+          up_result = upwards_algorithm([row_index, column_index], column)
+          down_result = downwards_algorithm([row_index, column_index], column)
         end
 
-        if row_index > 2 # rubocop:disable Style/Next
-          return true if @board[row_index][position_index] == "X" &&
-                         @board[row_index - 1][position_index + 1] == "X" &&
-                         @board[row_index - 2][position_index + 2] == "X" &&
-                         @board[row_index - 3][position_index + 3] == "X"
-
-          return true if @board[row_index][position_index] == "O" &&
-                         @board[row_index - 1][position_index + 1] == "O" &&
-                         @board[row_index - 2][position_index + 2] == "O" &&
-                         @board[row_index - 3][position_index + 3] == "O"
-        end
+        return true if up_result == true || down_result == true
       end
     end
     false
+  end
+
+  # Checks if there is an upwards win
+  def upwards_algorithm(position, letter)
+    counter = 0
+
+    loop do
+      break if position[0] > 5 || position[1] > 6
+
+      break unless @board[position[0]][position[1]] == letter
+
+      counter += 1
+      position = [position[0] + 1, position[1] + 1]
+
+      return true if counter == 4
+    end
+  end
+
+  # Checks if there is an downwards win
+  def downwards_algorithm(position, letter)
+    counter = 0
+
+    loop do
+      # break if position[0] < 0 || position[1] > 4
+
+      break unless @board[position[0]][position[1]] == letter
+
+      counter += 1
+      position = [position[0] - 1, position[1] + 1]
+
+      return true if counter == 4
+    end
   end
 
   # Check each position and if any of them are nil then board is not full

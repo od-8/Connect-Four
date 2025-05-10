@@ -94,7 +94,7 @@ class Game
   end
 
   # This asks for another game, it creates a new board but keeps the same players
-  def another_game # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def another_game # rubocop:disable Metrics/MethodLength
     puts ""
     puts " Would you like to player another game?"
     puts ""
@@ -102,14 +102,13 @@ class Game
     result = gets.chomp.downcase
 
     if result == "y"
-      print "\e[14A\e[J"
+      print "\e[15A\e[J"
       new_game = Game.new(@player1.name, @player2.name)
       new_game.play_game
     else
       puts ""
       puts ""
       puts " Thank you for playing Connect Four.".colorize(:green)
-      puts ""
     end
   end
 end

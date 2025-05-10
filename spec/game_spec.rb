@@ -12,8 +12,6 @@ describe Game do # rubocop:disable Metrics/BlockLength
   describe "#game_loop" do # rubocop:disable Metrics/BlockLength
     context "when game_over? is false once" do
       before do
-        random_number = 5
-        invalid_number = 13
         allow(test_game).to receive(:game_over?).and_return(false, true)
         allow(test_game).to receive(:player_turn).and_return([5, 13])
         allow(test_game).to receive(:puts)
